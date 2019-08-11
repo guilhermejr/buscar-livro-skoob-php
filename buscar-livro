@@ -1,0 +1,58 @@
+#!/usr/bin/env php
+<?php
+
+// --- Mensagem de erro parâmetros ---
+function mensagemErroParametros($argv) 
+{
+    echo PHP_EOL;
+    echo "Uso: ". $argv[0] ." [formato] [isbn]" . PHP_EOL . PHP_EOL;
+    echo "formato    Poder ser json ou array" . PHP_EOL;
+    echo "isbn       Deve ser uma sequencia de 10 ou 13 digitos" . PHP_EOL . PHP_EOL;
+    echo "Exemplo: ". $argv[0] ." array 9788562936524" . PHP_EOL;
+    echo PHP_EOL;
+    exit();
+}
+
+// --- Mensagem de erro ISBN ---
+function mensagemErroISBN() 
+{
+    echo "Formato do ISBN inválido. Deve ter somente 10 ou 13 dígitos" . PHP_EOL;
+    exit();
+}
+
+// --- Verifica se o ambiente que está rodando é o cli ---
+if (PHP_SAPI !== "cli") {
+    echo "Aviso: Este script deve ser rodado a via console." . PHP_EOL;
+}
+
+// --- Verifica se a quantidade de argumentos está correta ---
+if ($argc != 3) {
+    mensagemErroParametros($argv);
+}
+
+// --- Verifica se o primeiro parâmetro é válido ---
+if ($argv[1] != "array" && $argv[1] != "json") {
+    mensagemErroParametros($argv);
+}
+
+// --- Verifica quantidade de caracteres do isbn ---
+$qtdISBN = strlen($argv[2]);
+if ($qtdISBN != 10 && $qtdISBN != 13) {
+    mensagemErroISBN();
+} 
+
+// --- Verifica se é formado só por digitos ---
+if (!preg_match("/\d{10,13}/", $argv[2])) {
+    mensagemErroISBN();
+}
+
+require 'vendor/autoload.php';
+
+use BuscaLivroSkoob\Buscador;
+
+$buscador = new Buscador($argv[2]);
+if ($argv[1] == "json") {
+    print_r($buscador->getJSON(true));
+} else {
+    print_r($buscador->getArray());
+}

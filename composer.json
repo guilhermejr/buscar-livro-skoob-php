@@ -1,0 +1,24 @@
+{
+    "name": "guilhermejr/busca-livro-skoob",
+    "description": "Busca informações de um livro no skoob",
+    "type": "library",
+    "require": {
+        "php": "^7.3",
+        "guzzlehttp/guzzle": "^6.3",
+        "symfony/dom-crawler": "^4.3",
+        "symfony/css-selector": "^4.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Guilherme Jr",
+            "email": "falecom@guilhermejr.net"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "BuscaLivroSkoob\\" : "src/"
+        }
+    },
+    "bin": ["buscar-livro"]
+}
