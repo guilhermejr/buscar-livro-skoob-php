@@ -5,7 +5,7 @@ Busca informações de um livro no skoob
 ## Dependência
 
 * PHP 7.3+
-* php-libxml
+* php-xml
 
 ## Instalação
 
