@@ -5,7 +5,7 @@
     "type": "library",
     "require": {
         "php": "^7.3",
-        "lib-libxml": "^2.9.9",
+        "lib-libxml": "^2.9",
         "guzzlehttp/guzzle": "^6.3",
         "symfony/dom-crawler": "^4.3",
         "symfony/css-selector": "^4.3"
