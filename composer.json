@@ -7,8 +7,8 @@
         "php": "^7.3",
         "ext-xml": "^7.3",
         "guzzlehttp/guzzle": "^6.3",
-        "symfony/dom-crawler": "^4.3",
-        "symfony/css-selector": "^4.3"
+        "symfony/dom-crawler": "^5.1",
+        "symfony/css-selector": "^5.1"
     },
     "license": "MIT",
     "authors": [
