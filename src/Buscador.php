@@ -92,17 +92,16 @@ class Buscador
         return $editora;
     }
 
-    private function getAutor() : string
+    private function getAutor() : array
     {
-        if ($this->crawler->filter('i.sidebar-subtitulo')->eq(0)->count() > 0) {
-            $autor = trim($this->crawler->filter('i.sidebar-subtitulo')->eq(0)->html());
-        } else {
-            $autor = $this->crawler->filter('.pg-livro-bt-compra')->eq(0)->previousAll()->eq(1)->html();
-        }
+        $autor = $this->crawler->filterXPath('//*[@id="pg-livro-menu-principal-container"]/a')->filter('a')->each(function (Crawler $node, $i) {
+            return $node->text();
+        });
+
         return $autor;
     }
 
-    private function getGenero()
+    private function getGenero() : array
     {
         try {
             $genero = array_map('trim', explode(' / ', strip_tags($this->crawler->filter('.pg-livro-generos')->eq(0)->html())));
