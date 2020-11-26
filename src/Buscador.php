@@ -114,31 +114,36 @@ class Buscador
     private function getDescricao() : string
     {
         $descricao = trim(strip_tags(explode('<span class=', $this->crawler->filter('p[itemprop=description]')->eq(0)->html())[0]));
-        return empty($descricao) ? null : $descricao;
+        return empty($descricao) ? "" : $descricao;
     }
 
     private function getIsbn10() : string
     {
         $isbn10 = trim($this->crawler->filter('.sidebar-desc')->eq(0)->filter('span')->eq(1)->html());
-        return empty($isbn10) ? null : $isbn10;
+        return empty($isbn10) ? "" : $isbn10;
     }
 
     private function getIsbn13() : string
     {
         $isbn13 = trim($this->crawler->filter('.sidebar-desc')->eq(0)->filter('span')->eq(0)->html());
-        return empty($isbn13) ? null : $isbn13;
+        return empty($isbn13) ? "" : $isbn13;
     }
 
     private function getSubTitulo() : string
     {
-        $subTitulo = trim($this->crawler->filter('.sidebar-subtitulo')->eq(0)->html());
-        return empty($subTitulo) ? null : $subTitulo;
+        try {
+            $subTitulo = trim($this->crawler->filter('.sidebar-subtitulo')->eq(0)->html());
+        } catch(\Exception $e) {
+            $subTitulo = "";
+        }
+        
+        return $subTitulo;
     }
 
     private function getTitulo() : string
     {
         $titulo = trim($this->crawler->filter('.sidebar-titulo')->eq(0)->html());
-        return empty($titulo) ? null : $titulo;
+        return empty($titulo) ? "" : $titulo;
     }
 
     private function getExtensao() : string
@@ -147,14 +152,14 @@ class Buscador
             $capa = explode('.', $this->getCapa());
             return end($capa);
         } else {
-            return null;
+            return "";
         }
     }
 
     private function getCapa() : string
     {
         $capa = trim($this->crawler->filter('.capa-link-item')->eq(0)->filter('img')->attr('src'));
-        return empty($capa) ? null : $capa;
+        return empty($capa) ? "" : $capa;
     }
 
     private function htmlDoLivro() : string
