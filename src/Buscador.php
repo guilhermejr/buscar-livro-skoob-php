@@ -107,7 +107,7 @@ class Buscador
             $genero = array_map('trim', explode(' / ', strip_tags($this->crawler->filter('.pg-livro-generos')->eq(0)->html())));
             return $genero;
         } catch (\Exception $e) {
-            return "Não informado";
+            return ["Não informado"];
         }
     }
 
