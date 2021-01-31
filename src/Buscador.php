@@ -98,6 +98,10 @@ class Buscador
             return $node->text();
         });
 
+        if (empty($autor)) {
+            return ["Não informado"];
+        }
+
         return $autor;
     }
 
@@ -113,8 +117,13 @@ class Buscador
 
     private function getDescricao() : string
     {
-        $descricao = trim(strip_tags(explode('<span class=', $this->crawler->filter('p[itemprop=description]')->eq(0)->html())[0]));
-        return empty($descricao) ? "" : $descricao;
+        try {
+            $descricao = trim(strip_tags(explode('<span class=', $this->crawler->filter('p[itemprop=description]')->eq(0)->html())[0]));
+        } catch(\Exception $e) {
+            $descricao = "Não informado";
+        }
+        
+        return $descricao;
     }
 
     private function getIsbn10() : string
