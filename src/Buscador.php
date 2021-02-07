@@ -62,19 +62,19 @@ class Buscador
 
     private function getPaginas() : string
     {
-        $paginas = trim(explode(':', explode('/', $this->anoPaginaIdiomaEditora[2])[1])[1]);
+        $paginas = trim(strip_tags(explode(':', explode('/', $this->anoPaginaIdiomaEditora[2])[1])[1]));
         return $paginas;
     }
 
     private function getAnoPublicacao() : string
     {
-        $anoPublicacao = trim(explode(':', explode('/', $this->anoPaginaIdiomaEditora[2])[0])[1]);
+        $anoPublicacao = trim(strip_tags(explode(':', explode('/', $this->anoPaginaIdiomaEditora[2])[0])[1]));
         return $anoPublicacao;
     }
 
     private function getIdioma() : string
     {
-        $idioma = trim(explode(':', $this->anoPaginaIdiomaEditora[3])[1]);
+        $idioma = trim(strip_tags(explode(':', $this->anoPaginaIdiomaEditora[3])[1]));
         return $idioma;
     }
 
@@ -82,12 +82,12 @@ class Buscador
     {
         if ($this->getIsbn10()) {
             if ($this->crawler->filter('.sidebar-desc')->eq(0)->filter('a')->eq(0)->count() > 0) {
-                $editora = trim($this->crawler->filter('.sidebar-desc')->eq(0)->filter('a')->eq(0)->html());
+                $editora = trim(strip_tags($this->crawler->filter('.sidebar-desc')->eq(0)->filter('a')->eq(0)->html()));
             } else {
-                $editora = trim(explode(':', $this->anoPaginaIdiomaEditora[4])[1]);
+                $editora = trim(strip_tags(explode(':', $this->anoPaginaIdiomaEditora[4])[1]));
             }
         } else {
-            $editora = trim(explode(':', $this->anoPaginaIdiomaEditora[3])[1]);
+            $editora = trim(strip_tags(explode(':', $this->anoPaginaIdiomaEditora[3])[1]));
         }
         return $editora;
     }
@@ -95,7 +95,7 @@ class Buscador
     private function getAutor() : array
     {
         $autor = $this->crawler->filterXPath('//*[@id="pg-livro-menu-principal-container"]/a')->filter('a')->each(function (Crawler $node, $i) {
-            return $node->text();
+            return strip_tags($node->text());
         });
 
         if (empty($autor)) {
@@ -128,20 +128,20 @@ class Buscador
 
     private function getIsbn10() : string
     {
-        $isbn10 = trim($this->crawler->filter('.sidebar-desc')->eq(0)->filter('span')->eq(1)->html());
+        $isbn10 = trim(strip_tags($this->crawler->filter('.sidebar-desc')->eq(0)->filter('span')->eq(1)->html()));
         return empty($isbn10) ? "" : $isbn10;
     }
 
     private function getIsbn13() : string
     {
-        $isbn13 = trim($this->crawler->filter('.sidebar-desc')->eq(0)->filter('span')->eq(0)->html());
+        $isbn13 = trim(strip_tags($this->crawler->filter('.sidebar-desc')->eq(0)->filter('span')->eq(0)->html()));
         return empty($isbn13) ? "" : $isbn13;
     }
 
     private function getSubTitulo() : string
     {
         try {
-            $subTitulo = trim($this->crawler->filter('.sidebar-subtitulo')->eq(0)->html());
+            $subTitulo = trim(strip_tags($this->crawler->filter('.sidebar-subtitulo')->eq(0)->html()));
         } catch(\Exception $e) {
             $subTitulo = "";
         }
@@ -151,7 +151,7 @@ class Buscador
 
     private function getTitulo() : string
     {
-        $titulo = trim($this->crawler->filter('.sidebar-titulo')->eq(0)->html());
+        $titulo = trim(strip_tags($this->crawler->filter('.sidebar-titulo')->eq(0)->html()));
         return empty($titulo) ? "" : $titulo;
     }
 
