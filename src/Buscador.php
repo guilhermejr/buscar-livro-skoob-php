@@ -48,8 +48,8 @@ class Buscador
             $livro['isbn13'] = $this->getIsbn13();
             $livro['isbn10'] = $this->getIsbn10();
             $livro['descricao'] = $this->getDescricao();
-            $livro['genero'] = $this->getGenero();
-            $livro['autor'] = $this->getAutor();
+            $livro['generos'] = $this->getGeneros();
+            $livro['autores'] = $this->getAutores();
             $livro['editora'] = $this->getEditora();
             $livro['idioma'] = $this->getIdioma();
             $livro['anoPublicacao'] = $this->getAnoPublicacao();
@@ -92,7 +92,7 @@ class Buscador
         return $editora;
     }
 
-    private function getAutor() : array
+    private function getAutores() : array
     {
         $autor = $this->crawler->filterXPath('//*[@id="pg-livro-menu-principal-container"]/a')->filter('a')->each(function (Crawler $node, $i) {
             return strip_tags($node->text());
@@ -105,7 +105,7 @@ class Buscador
         return $autor;
     }
 
-    private function getGenero() : array
+    private function getGeneros() : array
     {
         try {
             $genero = array_map('trim', explode(' / ', strip_tags($this->crawler->filter('.pg-livro-generos')->eq(0)->html())));
