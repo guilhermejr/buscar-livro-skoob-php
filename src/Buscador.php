@@ -118,7 +118,7 @@ class Buscador
     private function getDescricao() : string
     {
         try {
-            $descricao = trim(strip_tags(explode('<span class=', $this->crawler->filter('p[itemprop=description]')->eq(0)->html())[0]));
+            $descricao = trim(explode('<span class=', $this->crawler->filter('p[itemprop=description]')->eq(0)->html())[0]);
         } catch(\Exception $e) {
             $descricao = "Não informado";
         }
