@@ -44,7 +44,7 @@ class Buscador
             $livro['capa'] = $this->getCapa();
             $livro['extensao'] = $this->getExtensao();
             $livro['titulo'] = $this->getTitulo();
-            $livro['subTitulo'] = $this->getSubTitulo();
+            $livro['subtitulo'] = $this->getSubtitulo();
             $livro['isbn13'] = $this->getIsbn13();
             $livro['isbn10'] = $this->getIsbn10();
             $livro['descricao'] = $this->getDescricao();
@@ -138,15 +138,15 @@ class Buscador
         return empty($isbn13) ? "" : $isbn13;
     }
 
-    private function getSubTitulo() : string
+    private function getSubtitulo() : string
     {
         try {
-            $subTitulo = trim(strip_tags($this->crawler->filter('.sidebar-subtitulo')->eq(0)->html()));
+            $subtitulo = trim(strip_tags($this->crawler->filter('.sidebar-subtitulo')->eq(0)->html()));
         } catch(\Exception $e) {
-            $subTitulo = "";
+            $subtitulo = "";
         }
         
-        return $subTitulo;
+        return $subtitulo;
     }
 
     private function getTitulo() : string
