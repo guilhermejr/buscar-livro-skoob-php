@@ -1,4 +1,4 @@
-# busca-livro-skoob
+# buscar-livro-skoob
 
 Busca informações de um livro no skoob
 
